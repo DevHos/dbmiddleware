@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pages.inner')
 
 @section('dashboardcontent')
 <div class="container">
@@ -25,9 +25,14 @@
                             </label>
                         </div>
 				  	</div>
-				  	<button type="submit" class="btn btn-primary">Publish</button>
+				  	<button type="submit" class="btn btn-primary">Update</button>
 				</form>
 				<br>
+				<form method="POST" action="/supliers/delete/{{$suplier->id}}">
+					{{ csrf_field() }}
+					{{ method_field('DELETE') }}
+				  	<button type="submit" class="btn btn-primary">Delete Supplier</button>
+				</form>
             </div>
         </div>
     </div>

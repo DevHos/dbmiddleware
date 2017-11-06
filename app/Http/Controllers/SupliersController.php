@@ -101,7 +101,7 @@ class SupliersController extends Controller
         //update it to the database 
         $suplier->update();
         // redirect to the home page
-        session()->flash('suplier-created', 'Your supplier has been created.');
+        session()->flash('suplier-updated', 'Your supplier has been updated');
 
         return back();
     }
@@ -112,8 +112,15 @@ class SupliersController extends Controller
      * @param  \App\Suplier  $suplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Suplier $suplier)
-    {
-        //
+    public function destroy(Request $request, Suplier $suplier)
+    {   
+        $suplier->id = request('id');
+
+        $suplier->delete();
+         
+
+        session()->flash('suplier-deleted', 'Your supplier has been deleted');
+
+        return redirect('/supliers/index');
     }
 }

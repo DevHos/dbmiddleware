@@ -24,3 +24,5 @@ Route::post('/supliers', 'SupliersController@store');
 Route::get('/supliers/create', 'SupliersController@create');
 Route::get('/supliers/show/{suplier}', 'SupliersController@show');
 Route::post('/supliers/update/{suplier}', 'SupliersController@update');
+
+Route::delete('/supliers/delete/{suplier}', 'SupliersController@destroy');

@@ -47,7 +47,22 @@
               <div class="col">
                 @if (!Auth::guest())
                
-                    @include('layouts.pages.home')
+                    <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+					  <!-- tasks -->
+					  <div class="panel wrapper">
+					    <div class="row">
+					        <div class="col-md-12 b-r b-light no-border-xs">
+					            <a href class="text-muted pull-right text-lg"><i class="icon-arrow-right"></i></a>
+					            <h4 class="font-thin m-t-none m-b-md text-muted">Inner Page</h4>
+					            @yield('dashboardcontent')
+					        </div>
+					        <div class="col-md-12">
+					            
+					        </div>
+					    </div>
+					  </div>
+					  <!-- / tasks -->
+					</div>
 
                 @else
 

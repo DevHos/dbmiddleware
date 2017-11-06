@@ -1,4 +1,4 @@
-@extends ('layouts.app')
+@extends ('layouts.pages.inner')
 
 @section ('dashboardcontent')
 
@@ -11,9 +11,8 @@
 	        <select class="input-sm form-control w-sm inline v-middle">
 	          <option value="0">Bulk action</option>
 	          <option value="1">Delete selected</option>
-	          <option value="3">Export</option>
 	        </select>
-	        <button class="btn btn-sm btn-default">Apply</button>                
+	        <button type="submit" class="btn btn-sm btn-default">Apply</button>                
 	      </div>
 	      <div class="col-sm-4">
 	      </div>
@@ -38,18 +37,18 @@
 	            <th>Supplier</th>
 	            <th>Description</th>
 	            <th>Date</th>
-	            <th style="width:30px;"></th>
+	            <th style="width:30px;">Active?</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 			@foreach ($supliers as $suplier)
 	          <tr>
-	            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-	            <td>{{$suplier->name}}</td>
+	            <td><label class="i-checks m-b-none"><input type="checkbox" name="name[]" value="{{$suplier->id}}"><i></i></label></td>
+	            <td><a href="/supliers/show/{{$suplier->id}}">{{$suplier->name}}</a></td>
 	            <td>{{str_limit($suplier->description, 25)}}</td>
 	            <td>{{$suplier->created_at->toFormattedDateString()}}</td>
 	            <td>
-	              <a href class="{{$suplier->active ? 'active' : ''}}" ui-toggle-class><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
+	              <span class="{{$suplier->active ? 'active' : ''}}"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></span>
 	            </td>
 	          </tr>
 	          @endforeach
@@ -62,12 +61,11 @@
 	          <select class="input-sm form-control w-sm inline v-middle">
 	            <option value="0">Bulk action</option>
 	            <option value="1">Delete selected</option>
-	            <option value="3">Export</option>
 	          </select>
-	          <button class="btn btn-sm btn-default">Apply</button>                  
+	          <button type="submit" class="btn btn-sm btn-default">Apply</button>                  
 	        </div>
 	        <div class="col-sm-4 text-center">
-	          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+	          <small class="text-muted inline m-t-sm m-b-sm">showing {{count($supliers)}} items</small>
 	        </div>
 	        <div class="col-sm-4 text-right text-center-xs">                
 	          <ul class="pagination pagination-sm m-t-none m-b-none">
@@ -79,7 +77,5 @@
 	      </div>
 	    </footer>
   	</div>
-  	
-
 
 @endsection
