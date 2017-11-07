@@ -24,6 +24,14 @@
 					    </select>
 				  	</div>
 				  	<div class="form-group">
+					    <label for="suplier_id">Supplier:</label>
+					    <select id="suplier_id" name="suplier_id" class="form-control">
+					    	@foreach ($connection->suplier as $supplier)
+					    		<option value="{{$supplier->id}}">{{$supplier->name}}</option>
+					    	@endforeach
+					    </select>
+				  	</div>
+				  	<div class="form-group">
 					    <label for="name">Host *:</label>
 					    <input type="text" class="form-control" id="host" name="host" required>
 				  	</div>

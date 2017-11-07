@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Connection;
+use App\Suplier;
 use Illuminate\Http\Request;
 
 class ConnectionsController extends Controller
@@ -23,9 +24,9 @@ class ConnectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('connections.create');
+    public function create(Connection $connection)
+    {   
+        return view('connections.create', compact('connection'));
     }
 
     /**
@@ -50,6 +51,7 @@ class ConnectionsController extends Controller
 
         $connection->name = request('name');
         $connection->type = request('type');
+        $connection->suplier_id = 1;
         $connection->host = request('host');
         $connection->port = request('port');
         $connection->database = request('database');

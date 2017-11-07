@@ -22,6 +22,7 @@ class CreateConnectionsTable extends Migration
             $table->string('database');
             $table->string('username');
             $table->string('password');
+            $table->integer('suplier_id');
             $table->integer('active');
             $table->timestamps();
         });
