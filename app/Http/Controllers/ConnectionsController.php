@@ -12,9 +12,10 @@ class ConnectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Connection $connections)
     {
-        //
+        $connections = $connections->all();
+        return view('connections.index', compact('connections'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ConnectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('connections.create');
     }
 
     /**
@@ -35,7 +36,32 @@ class ConnectionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $connection = new Connection;
+
+        $this->validate(request(),[
+            'name' => 'required',
+            'type' => 'required',
+            'host' => 'required',
+            'port' => 'required',
+            'database' => 'required',
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        $connection->name = request('name');
+        $connection->type = request('type');
+        $connection->host = request('host');
+        $connection->port = request('port');
+        $connection->database = request('database');
+        $connection->username = request('username');
+        $connection->password = bcrypt(request('password'));
+        $connection->active = request('active') ? 1 : 0;
+        //save it to the database 
+        $connection->save();
+        // redirect to the home page
+        session()->flash('connection-created', 'Your Connection has been created.');
+
+        return back();
     }
 
     /**
@@ -46,7 +72,7 @@ class ConnectionsController extends Controller
      */
     public function show(Connection $connection)
     {
-        //
+        return view('connections.show', compact('connection'));
     }
 
     /**
@@ -69,7 +95,30 @@ class ConnectionsController extends Controller
      */
     public function update(Request $request, Connection $connection)
     {
-        //
+        $this->validate(request(),[
+            'name' => 'required',
+            'type' => 'required',
+            'host' => 'required',
+            'port' => 'required',
+            'database' => 'required',
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        $connection->name = request('name');
+        $connection->type = request('type');
+        $connection->host = request('host');
+        $connection->port = request('port');
+        $connection->database = request('database');
+        $connection->username = request('username');
+        $connection->password = bcrypt(request('password'));
+        $connection->active = request('active') ? 1 : 0;
+        //update it to the database 
+        $connection->update();
+        // redirect to the home page
+        session()->flash('connection-updated', 'Your Connection has been updated');
+
+        return back();
     }
 
     /**
@@ -78,8 +127,15 @@ class ConnectionsController extends Controller
      * @param  \App\Connection  $connection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Connection $connection)
+    public function destroy(Request $request, Connection $connection)
     {
-        //
+        $connection->id = request('id');
+
+        $connection->delete();
+         
+
+        session()->flash('connection-deleted', 'Your Connection has been deleted');
+
+        return redirect('/connections/index');
     }
 }

@@ -15,6 +15,14 @@ class CreateConnectionsTable extends Migration
     {
         Schema::create('connections', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->unique();
+            $table->string('type');
+            $table->string('host');
+            $table->integer('port');
+            $table->string('database');
+            $table->string('username');
+            $table->string('password');
+            $table->integer('active');
             $table->timestamps();
         });
     }
